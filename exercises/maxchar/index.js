@@ -7,21 +7,15 @@
 
 function maxChar(str) {
     let result, mapChar = {}, max = 0
-    for (let i = 0; i < str.length; i++) {
-        if (mapChar[str.charAt(i)]) {
-            mapChar[str.charAt(i)]++
-        } else {
-            mapChar[str.charAt(i)] = 1
-        }
+    for (let char of str) {
+        mapChar[char] = mapChar[char] ? mapChar[char] + 1 : 1
     }
- 
     for (let char in mapChar) {
         if (mapChar[char] > max) {
             max = mapChar[char]
             result = char
         }
     }
-
     return result
 }
 
