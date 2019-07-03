@@ -10,6 +10,7 @@
 
 function chunk(array, size) {
     const result = []
+
     for (let i = 0; i < array.length; i++) {
         const lastElement = result[result.length - 1]
         if (!lastElement || lastElement.length === size) {
@@ -18,6 +19,7 @@ function chunk(array, size) {
             lastElement.push(array[i])
         }
     }
+
     return result
 }
 
