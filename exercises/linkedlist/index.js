@@ -33,7 +33,7 @@ class LinkedList {
 
     getLast() {
         let node = this.head, last = node
-        while(node !== null) {
+        while (node !== null) {
             last = node
             node = node.next
         }
@@ -56,7 +56,7 @@ class LinkedList {
         }
         let previous = this.head, node = this.head.next
         while (node.next && node.next !== null) {
-            previous = node 
+            previous = node
             node = node.next
         }
         previous.next = null
@@ -72,12 +72,56 @@ class LinkedList {
     }
 
     getAt(index) {
-        if (index > this.size()) { return null }
         let node = this.head, counter = 0
         while (node) {
             if (counter === index) {
                 return node
             }
+            node = node.next
+            counter++
+        }
+        return null
+    }
+
+    removeAt(index) {
+        let currentNode = this.head, previousNode, count = 0
+        if (!this.head) { return }
+        if (index === 0) { this.head = currentNode.next; return }
+        while (count < index) {
+            count++
+            previousNode = currentNode
+            currentNode = currentNode.next
+        }
+        if (!currentNode) { return }
+        previousNode.next = currentNode.next
+    }
+
+    insertAt(val, index) {
+        let currentNode = this.head, count = 0, previousNode
+        if (!this.head || index === 0) { this.insertFirst(val); return }
+        if (index > this.size()) { this.insertLast(val); return }
+        while (count < index) {
+            previousNode = currentNode
+            count++
+            currentNode = currentNode.next
+        }
+        const node = new Node(val)
+        node.next = currentNode
+        previousNode.next = node
+    }
+
+    *[Symbol.iterator]() {
+        let node = this.head
+        while (node) {
+            yield node
+            node = node.next
+        }
+    }
+
+    forEach(fn) {
+        let node = this.head, counter = 0
+        while (node) {
+            fn(node, counter)
             node = node.next
             counter++
         }
